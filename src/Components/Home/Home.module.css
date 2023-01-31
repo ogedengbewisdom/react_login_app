@@ -1,0 +1,21 @@
+.home {
+    margin: auto;
+    margin-top: 8rem;
+    padding: 4rem;
+    width: 90%;
+    max-width: 40rem;
+    display: flex;
+    justify-content: center;
+    
+}
+
+@media (max-width: 576px) {
+    .home {
+        padding: 2rem;
+    }
+    .home h1 {
+        white-space: nowrap;
+        font-size: larger;
+
+    }
+}
