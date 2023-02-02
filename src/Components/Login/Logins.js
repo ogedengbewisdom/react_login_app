@@ -13,16 +13,30 @@ const emailReducer = (state, action) => {
     }
 }
 
+const passwordReducer = (state, action) => {
+    if (action.type === "USER_PASSWORD") {
+        return {value: action.val, isValid: action.val.trim().length > 6}
+    } else if (action.type === "PASSWORD_BLUR") {
+        return {value: state.value, isValid: state.value.trim().length > 6} 
+    }
+    return {value: "", isValid: false}
+}
+
 
 const Logins = (props) => {
 
     // const [enteredEmail, setEnteredEmail] = useState("")
     // const [validEmail, setValidEmail] = useState()
-    const [enteredPassword, setEnteredPassword] = useState("")
-    const [validPassword, setValidPassword] = useState()
+    // const [enteredPassword, setEnteredPassword] = useState("")
+    // const [validPassword, setValidPassword] = useState()
     const [validForm, setValidForm] = useState(false)
 
     const [emailState, dispatchEmail] = useReducer(emailReducer, {
+        value: "",
+        isValid: undefined
+    })
+
+    const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
         value: "",
         isValid: undefined
     })
@@ -45,24 +59,20 @@ const Logins = (props) => {
     }
 
     const enteredPasswordHandler = (event) => {
-        setEnteredPassword(event.target.value)
-        if (event.target.value.trim().length > 6) {
-            setValidForm(true)
-        }
+        dispatchPassword({type: "USER_PASSWORD", val: event.target.value})
     }
 
     const checkEmailValidity = () => {
         dispatchEmail({type: "EMAIL_BLUR"})
     }
 
-    const checkPasswordValidity = (event) => {
-        setValidPassword(event.target.value.trim().length > 6)
+    const checkPasswordValidity = () => {
+        dispatchPassword({type: "PASSWORD_BLUR"})
     }
 
     const submitHandler = (event) => {
         event.preventDefault()
-        props.onLogin(emailState.value, enteredPassword)
-        setEnteredPassword("")
+        props.onLogin(emailState.value, passwordState.value)
     }
 
     return (
@@ -79,20 +89,20 @@ const Logins = (props) => {
                       />
                 </div>
 
-                <div className={`${classes.control} ${validPassword === false ? classes.invalid : ""}`}>
+                <div className={`${classes.control} ${passwordState.isValid === false ? classes.invalid : ""}`}>
                     <label htmlFor="password">Password</label>
                     <input
                      type="password" 
                      id="password"
                      autoComplete="password"
-                     value={enteredPassword}
+                     value={passwordState.value}
                      onChange={enteredPasswordHandler}
                      onBlur={checkPasswordValidity}
                      />
                 </div>
                 
                 <div className={classes.but}>
-                    <Button type="submit" disabled={!validForm}>Login</Button>
+                    <Button type="submit" disabled={!emailState.isValid || !passwordState.isValid}>Login</Button>
                 </div>
             </form>
         </Card>
