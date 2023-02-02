@@ -8,53 +8,9 @@
     
 }
 
-.control {
-    margin: 2rem 0.3rem -1rem 2rem;
-    display: flex;
-}
-
-.control label {
-    flex: 1;  
-}
-
-.control input {
-    width: 30rem;
-    flex: 5;
-    outline: none;
-    border: 1px solid rgb(184, 178, 178);
-    border-radius: 5px;
-    padding: 0.3rem;   
-}
-
 .but {
     display: flex;
     justify-content: center;
     margin-top: 50px;
 }
 
-.control input:focus {
-    background-color: rgb(236, 223, 225);
-    border: 1px solid violet;
-}
-
-.control.invalid input {
-    border: 1px solid salmon;
-    background-color: rgb(255, 171, 171);
-}
-
-@media (max-width: 576px) {
-    .control {
-        display: flex;
-        flex-direction: column;
-        margin: 1.5rem 1rem -0.9rem 2rem;
-
-        
-    }
-    .control input {
-        width: 90%;
-        min-width: 15rem;
-        flex: 2;
-        margin-top: 0.4rem;
-        flex-direction: column;
-    }
-}
