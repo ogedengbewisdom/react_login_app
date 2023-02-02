@@ -1,6 +1,7 @@
 import { useEffect, useReducer, useState } from "react"
 import Button from "../UI/Button"
 import Card from "../UI/Card"
+import Input from "../UI/Input"
 import classes from "./Logins.module.css"
 
 const emailReducer = (state, action) => {
@@ -81,29 +82,24 @@ const Logins = (props) => {
     return (
         <Card className={classes.controls}>
             <form onSubmit={submitHandler}>
-                <div className={`${classes.control} ${emailState.isValid === false ? classes.invalid : ""}`}>
-                    <label htmlFor="email">E-mail</label>
-                    <input
-                     type="email" 
-                     id="email"
-                     value={emailState.value}
-                     onChange={enteredEmailHandler}
-                     onBlur={checkEmailValidity}
-                      />
-                </div>
+            <Input
+                label="E-mail"
+                isValid={emailState.isValid}
+                id="email"
+                value={emailState.value}
+                onChange={enteredEmailHandler}
+                onBlur={checkEmailValidity} 
+                />
 
-                <div className={`${classes.control} ${passwordState.isValid === false ? classes.invalid : ""}`}>
-                    <label htmlFor="password">Password</label>
-                    <input
-                     type="password" 
-                     id="password"
-                     autoComplete="password"
-                     value={passwordState.value}
-                     onChange={enteredPasswordHandler}
-                     onBlur={checkPasswordValidity}
-                     />
-                </div>
-                
+                <Input
+                label="Password"
+                isValid={passwordState.isValid}
+                id="password"
+                value={passwordState.value}
+                onChange={enteredPasswordHandler}
+                onBlur={checkPasswordValidity} 
+                />
+
                 <div className={classes.but}>
                     <Button type="submit" disabled={!validForm}>Login</Button>
                 </div>
