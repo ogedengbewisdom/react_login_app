@@ -41,7 +41,7 @@ function App(props) {
       {ReactDOM.createPortal(<MainHeaderPage isAuthenticated={props.isAuthenticated} onLogout={props.onLogout} />, document.getElementById("mainNavbar"))}
       {/* {!isLoging && } */}
       {!isLoging && ReactDOM.createPortal(<LoginPage onLogin={props.onLogin} />, document.getElementById("loginId"))}
-      {isLoging && <Home />}
+      {isLoging && <Home onLogout= {logoutHandler} />}
     </Fragment>
   );
 }
