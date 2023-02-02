@@ -41,18 +41,21 @@ const Logins = (props) => {
         isValid: undefined
     })
 
-    // useEffect(() => {
-    //     let identifier = setTimeout(() => {
-    //         console.log("ready")
-    //         setValidForm(enteredEmail.includes("@") && enteredPassword.trim().length > 6)
-    //     },500)
+    const {isValid: emaisIsValid} = emailState
+    const {isValid: passwordIsValid} = passwordState 
 
-    //     return (() => {
-    //         console.log("timeout")
-    //         clearTimeout(identifier)
-    //     })
+    useEffect(() => {
+        let identifier = setTimeout(() => {
+            console.log("ready")
+            setValidForm(emaisIsValid && passwordIsValid)
+        },500)
+
+        return (() => {
+            console.log("timeout")
+            clearTimeout(identifier)
+        })
         
-    // }, [enteredEmail, enteredPassword])
+    }, [emaisIsValid, passwordIsValid])
 
     const enteredEmailHandler = (event) => {
         dispatchEmail({type: "USER_EMAIL", val: event.target.value})
@@ -102,7 +105,7 @@ const Logins = (props) => {
                 </div>
                 
                 <div className={classes.but}>
-                    <Button type="submit" disabled={!emailState.isValid || !passwordState.isValid}>Login</Button>
+                    <Button type="submit" disabled={!validForm}>Login</Button>
                 </div>
             </form>
         </Card>
