@@ -9,7 +9,7 @@ const MainNavBar = (props) => {
     return (
         <div className={classes.head}>
             <h1>ShoPhit</h1>
-            <NavBar isLoging={props.isAuthenticated} onLogout={props.onLogout}/>
+            <NavBar />
         </div>
     )
 }
