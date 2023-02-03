@@ -58,8 +58,8 @@ const Logins = (props) => {
         
     }, [emaisIsValid, passwordIsValid])
 
-    // const emailInputRef = useRef()
-    // const passwordInputRef = useRef()
+    const emailInputRef = useRef()
+    const passwordInputRef = useRef()
 
     const enteredEmailHandler = (event) => {
         dispatchEmail({type: "USER_EMAIL", val: event.target.value})
@@ -76,11 +76,18 @@ const Logins = (props) => {
     const checkPasswordValidity = () => {
         dispatchPassword({type: "PASSWORD_BLUR"})
     }
-    // console.log(emailInputRef, passwordInputRef)
 
     const submitHandler = (event) => {
         event.preventDefault()
-        props.onLogin(emailState.value, passwordState.value)
+        if (validForm) {
+            props.onLogin(emailState.value, passwordState.value)
+        } else if (!emaisIsValid) {
+            emailInputRef.current.focus()
+        } else {
+            passwordInputRef.current.focus()
+        }
+        
+       
         
 
     }
@@ -89,7 +96,7 @@ const Logins = (props) => {
         <Card className={classes.controls}>
             <form onSubmit={submitHandler}>
             <Input
-                // ref={emailInputRef}
+                ref={emailInputRef}
                 label="E-mail"
                 isValid={emailState.isValid}
                 id="email"
@@ -99,7 +106,7 @@ const Logins = (props) => {
                 />
 
                 <Input
-                // ref={passwordInputRef}
+                ref={passwordInputRef}
                 label="Password"
                 isValid={passwordState.isValid}
                 id="password"
@@ -109,7 +116,7 @@ const Logins = (props) => {
                 />
 
                 <div className={classes.but}>
-                    <Button type="submit" disabled={!validForm}>Login</Button>
+                    <Button type="submit">Login</Button>
                 </div>
             </form>
         </Card>
