@@ -1,21 +1,25 @@
 
+import { useContext } from "react"
+import Authorize from "../../Store/authContext"
 import classes from "./NavBar.module.css"
 
-const NavBar = (props) => {
+const NavBar = () => {
+
+    const ctx = useContext(Authorize)
 
     return (
         <nav className={classes.navbar}>
             <ul>
-                {props.isLoging && (<li>
+                {ctx.isLoging && (<li>
                     <a href="/">Users</a>
                 </li>)}
 
-                {props.isLoging && (<li>
+                {ctx.isLoging && (<li>
                     <a href="/">Admin</a>
                 </li>)}
 
-                {props.isLoging && (<li>
-                    <button type="button" onClick={props.onLogout}>Logout</button>
+                {ctx.isLoging && (<li>
+                    <button onClick={ctx.onLogout}>Logout</button>
                 </li>)}
             </ul>
         </nav>
