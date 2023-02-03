@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from "react-dom"
 import Home from './Components/Home/Home';
 import Logins from './Components/Login/Logins';
 import MainNavBar from './Components/MainNavBar/MainNavBar';
+import Authorize from './Store/authContext';
 
 
 function App(props) {
@@ -27,7 +28,7 @@ function App(props) {
   }
 
   const MainHeaderPage = () => {
-    return (<MainNavBar isAuthenticated={isLoging} onLogout={logoutHandler}/>)
+    return (<MainNavBar/>)
   }
 
   const LoginPage = () => {
@@ -35,14 +36,16 @@ function App(props) {
   }
 
 
-
   return (
-    <Fragment>
-      {ReactDOM.createPortal(<MainHeaderPage isAuthenticated={props.isAuthenticated} onLogout={props.onLogout} />, document.getElementById("mainNavbar"))}
-      {/* {!isLoging && } */}
+    <Authorize.Provider
+     value={{
+      isLoging: isLoging, 
+      onLogout: logoutHandler}}>
+      {ReactDOM.createPortal(<MainHeaderPage />, document.getElementById("mainNavbar"))}
+
       {!isLoging && ReactDOM.createPortal(<LoginPage onLogin={props.onLogin} />, document.getElementById("loginId"))}
       {isLoging && <Home onLogout= {logoutHandler} />}
-    </Fragment>
+    </Authorize.Provider>
   );
 }
 
