@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react"
+import { useEffect, useReducer, useRef, useState } from "react"
 import Button from "../UI/Button"
 import Card from "../UI/Card"
 import Input from "../UI/Input"
@@ -58,6 +58,9 @@ const Logins = (props) => {
         
     }, [emaisIsValid, passwordIsValid])
 
+    // const emailInputRef = useRef()
+    // const passwordInputRef = useRef()
+
     const enteredEmailHandler = (event) => {
         dispatchEmail({type: "USER_EMAIL", val: event.target.value})
     }
@@ -73,16 +76,20 @@ const Logins = (props) => {
     const checkPasswordValidity = () => {
         dispatchPassword({type: "PASSWORD_BLUR"})
     }
+    // console.log(emailInputRef, passwordInputRef)
 
     const submitHandler = (event) => {
         event.preventDefault()
         props.onLogin(emailState.value, passwordState.value)
+        
+
     }
 
     return (
         <Card className={classes.controls}>
             <form onSubmit={submitHandler}>
             <Input
+                // ref={emailInputRef}
                 label="E-mail"
                 isValid={emailState.isValid}
                 id="email"
@@ -92,6 +99,7 @@ const Logins = (props) => {
                 />
 
                 <Input
+                // ref={passwordInputRef}
                 label="Password"
                 isValid={passwordState.isValid}
                 id="password"
