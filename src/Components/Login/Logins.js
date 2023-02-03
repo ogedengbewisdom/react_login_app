@@ -1,4 +1,5 @@
-import { useEffect, useReducer, useRef, useState } from "react"
+import { useContext, useEffect, useReducer, useRef, useState } from "react"
+import Authorize from "../../Store/authContext"
 import Button from "../UI/Button"
 import Card from "../UI/Card"
 import Input from "../UI/Input"
@@ -60,6 +61,8 @@ const Logins = (props) => {
 
     const emailInputRef = useRef()
     const passwordInputRef = useRef()
+    
+    const ctx = useContext(Authorize)
 
     const enteredEmailHandler = (event) => {
         dispatchEmail({type: "USER_EMAIL", val: event.target.value})
@@ -80,7 +83,7 @@ const Logins = (props) => {
     const submitHandler = (event) => {
         event.preventDefault()
         if (validForm) {
-            props.onLogin(emailState.value, passwordState.value)
+            ctx.onLogin(emailState.value, passwordState.value)
         } else if (!emaisIsValid) {
             emailInputRef.current.focus()
         } else {
